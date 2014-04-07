@@ -104,20 +104,21 @@
         fwrite( fid , currentBinary , 'uint8' )                                     ;
         fwrite( fid , currentSize , 'uint32' , 'l' )                                ;
         frame           = frameInSession                                            ;
-        ipd_string = [ sprintf( '%0.1d;%0.1d;' , vidDist( frame ) , cum_ms( frame ) ) self.colonTime( frame , : ) sprintf( '\n' ) ]         ;
+        ipd_string = [ sprintf( '%0.1d;%0.1d;' , vidDist( frame ) , cum_ms( frame ) ) self.colonTime( frame , : ) ]         ;
         fwrite( ipd_fid , ipd_string )                                              ;
+        fprintf( ipd_fid , '\r\n' )                                                   ;
     end
     
 disp( '----------------------------------' )
 fclose( 'all' )
 close all hidden
-winopen( file.hd )
-subplot( 2 , 1 , 1 )
-plot( 1 : numel( distance.timestamp ) , distance.timestamp , 1 : numel( self.videoTimes ) , self.videoTimes )
-legend( { 'Distance Timestamp' , 'Video TimeStamp' } )
-hold on 
-subplot( 2 , 1 , 2 )
-plot( 1 : numel( vidDist ) , vidDist / 100 , 1 : numel( distance.value ) , distance.value )
-legend( { 'Resulting Video Distance' , 'GNet Video Distance ' } )
-toc
+% winopen( file.hd )
+% subplot( 2 , 1 , 1 )
+% plot( 1 : numel( distance.timestamp ) , distance.timestamp , 1 : numel( self.videoTimes ) , self.videoTimes )
+% legend( { 'Distance Timestamp' , 'Video TimeStamp' } )
+% hold on 
+% subplot( 2 , 1 , 2 )
+% plot( 1 : numel( vidDist ) , vidDist / 100 , 1 : numel( distance.value ) , distance.value )
+% legend( { 'Resulting Video Distance' , 'GNet Video Distance ' } )
+% toc
 % dos( '"C:\Program Files (x86)\HxD\HxD.exe" "C:\Users\bclymer\Documents\GitHub\GNetToHD\test.hd"' )
